@@ -226,7 +226,7 @@ def IPv4PacketLoop(pkt_data,len):
     ip_hl = (int(tmp[1],16))
     packet.append(ip_hl)
 
-    # 服务类型，一个字节直接输出了，懒得处理了----------------------------------------5
+    # 服务类型----------------------------------------5
     ip_tos = ""
     ip_tos = ip_tos +  "%.2x" % (pkt_data[15])
     packet.append(ip_tos)
@@ -319,7 +319,6 @@ def IPv4PacketLoop(pkt_data,len):
         packet.append("无选项")
     ip_dataStart = ip_oplen*4 + 34
     # 数据的第一个字节偏移量
-    # 用得少，再说吧
     if (ip_off != "0"):
         packet.append("分片包")
         # 分片包----------------------------------------17
@@ -477,7 +476,6 @@ def IPv6PacketLoop(pkt_data, len ,begin):
 def ICMPPacketLoop(pkt_data, len, begin):
     # 从begin开始
     packet = []
-    # 提示类型，我靠啊，好长啊！好多啊！
     tmp = "%.2x" % (pkt_data[begin])
     icmp_type = (int(tmp,16))#----------------------------------------17
     tmp = "%.2x" % (pkt_data[begin + 1])
@@ -596,7 +594,6 @@ def ICMPPacketLoop(pkt_data, len, begin):
 def ICMPv6PacketLoop(pkt_data, len, begin):
     # 从begin开始
     packet = []
-    # 提示类型，又来了，疯掉了----------------------------------------12
     tmp = "%.2x" % (pkt_data[begin])
     icmp_type = (int(tmp,16))
     tmp = "%.2x" % (pkt_data[begin + 1])
@@ -701,7 +698,7 @@ def ICMPv6PacketLoop(pkt_data, len, begin):
         packet.append("	RPL控制消息")
     else:
         packet.append("未识别的协议请求")
-#校验和----------------------------------------13
+    #校验和----------------------------------------13
     icmp_cksum = ""
     for i in range(2):
         icmp_cksum = icmp_cksum + "%.2x" % (pkt_data[begin + 2 + i])
